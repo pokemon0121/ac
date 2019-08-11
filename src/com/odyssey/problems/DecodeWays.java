@@ -29,17 +29,24 @@ public class DecodeWays implements IProblem {
             return 1;
         }
         int len = s.length();
-        int v1 = 1, v2 = Integer.valueOf(s.substring(0, 2));
-        for (int i = 2; i < len; i++) {
-            int cur = s.charAt(i) == '0' ? 0 : v2;
-            int val = (s.charAt(i - 1) - '0') * 10 + s.charAt(i) - '0';
-            if (val >= 10 && val <= 26) {
-                cur += v1;
-            }
-            v1 = v2;
-            v2 = cur;
+        int pp = 1, p;
+        int first2 = Integer.valueOf(s.substring(0, 2));
+        if (first2 <= 26 && first2 % 10 != 0) {
+            p = 2;
         }
-        return v2;
+        else {
+            p = 1;
+        }
+        for (int i = 2; i < len; i++) {
+            int cur = s.charAt(i) == '0' ? 0 : p;
+            int val = (s.charAt(i - 1) - '0') * 10 + s.charAt(i) - '0';
+            if (val <= 26 && val % 10 != 0) {
+                cur += pp;
+            }
+            pp = p;
+            p = cur;
+        }
+        return p;
     }
 
     private int dfs(String s, int idx, int[] mem) {

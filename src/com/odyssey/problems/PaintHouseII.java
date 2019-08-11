@@ -44,6 +44,6 @@ public class PaintHouseII implements IProblem {
                 minCost = Math.min(minCost, cost);
             }
         }
-        return minCost;
+        //return minCost;
     }
 }
